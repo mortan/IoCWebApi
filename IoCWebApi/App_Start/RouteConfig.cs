@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace IoCWebApi
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(IoCWebApi.App_Start.RouteConfig), "PreStart")]
+
+
+namespace IoCWebApi.App_Start
 {
-    public class RouteConfig
+    [ExcludeFromCodeCoverage]
+    public static class RouteConfig
     {
-        public static void RegisterRoutes(RouteCollection routes)
+        public static void PreStart()
         {
+            var routes = RouteTable.Routes;
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(

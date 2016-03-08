@@ -1,59 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-using Autofac;
-using Autofac.Integration.Mvc;
-using Autofac.Integration.WebApi;
-using IoCWebApi.Controllers;
-using IoCWebApi.Services;
 
 namespace IoCWebApi
 {
+    [ExcludeFromCodeCoverage]
     public class WebApiApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            var builder = new ContainerBuilder();
-
-            // Get your HttpConfiguration.
-            var config = GlobalConfiguration.Configuration;
-
-            // Register your Web API controllers.
-            var assemblies = Assembly.GetExecutingAssembly();
-            builder.RegisterApiControllers(assemblies);
-            builder.RegisterControllers(assemblies);
-
-            // Beispiel um DataRepository Klasse an IDataRepository zu binden
-            // (Siehe auch http://docs.autofac.org/en/stable/integration/webapi.html#service-registration)
-            // Ich würde die Konfiguration des Containers übrigens in eine eigene App_Start Klasse verlegen!
-            // Das Konfigurieren von Autofac ist sehr mächtig! Man kann entweder alle Interfaces per Hand binden
-            // oder auf einen Convention over Configuration Ansatz greifen wenn das Projekt eine gewisse Größe
-            // überschritten hat. Konkret heißt das: Eine geeignete Orderstruktur finden und die Interfaces über
-            // Reflection binden, siehe für Beispiel: http://weblogs.asp.net/bsimser/convention-over-configuration-with-mvc-and-autofac
-            // Wir registrieren hier ein neues DataRepository für jeden WebRequest (das ist idR. eine gute Idee!), man kann auch
-            // Singletons registrieren, die müssen dann aber Thread-Safe sein!
-            builder.Register(c => new DataRepository()).As<IDataRepository>();
-
-            var container = builder.Build();
-            var autofacWebApiDependencyResolver = new AutofacWebApiDependencyResolver(container);
-
-            // WebApi (ValuesController) DependencyResolver auf unseren Autofac Resolver setzen
-            config.DependencyResolver = autofacWebApiDependencyResolver;
-
-            // MVC Controller Factory (HomeController) unseren Autofac Resolver benutzen lassen
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            // Seperation of concern... Startup-Logik befindet sich in den entsprechenden Klassen in App_Start
         }
     }
 }

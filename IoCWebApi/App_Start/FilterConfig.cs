@@ -1,14 +1,17 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Web;
 using System.Web.Mvc;
 
-namespace IoCWebApi
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(IoCWebApi.App_Start.FilterConfig), "PreStart")]
+
+namespace IoCWebApi.App_Start
 {
     [ExcludeFromCodeCoverage]
-    public class FilterConfig
+    public static class FilterConfig
     {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+        public static void PreStart()
         {
+            var filters = GlobalFilters.Filters;
+
             filters.Add(new HandleErrorAttribute());
         }
     }

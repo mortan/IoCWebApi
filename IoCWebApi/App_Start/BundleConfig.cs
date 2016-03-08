@@ -1,15 +1,18 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Web;
 using System.Web.Optimization;
 
-namespace IoCWebApi
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(IoCWebApi.App_Start.BundleConfig), "PreStart")]
+
+namespace IoCWebApi.App_Start
 {
     [ExcludeFromCodeCoverage]
-    public class BundleConfig
+    public static class BundleConfig
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void PreStart()
         {
+            var bundles = BundleTable.Bundles;
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
