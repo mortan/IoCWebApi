@@ -8,7 +8,7 @@ using IoCWebApi.Services;
 
 namespace IoCWebApi.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class ValuesController : ApiController
     {
         private readonly IDataRepository repository;

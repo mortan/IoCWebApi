@@ -157,9 +157,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\AutoFacConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Start\RoutesConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Services\DataRepository.cs" />
     <Compile Include="Services\IDataRepository.cs" />
