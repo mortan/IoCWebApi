@@ -12,7 +12,7 @@ namespace IoCWebApi
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            
         }
     }
 }
