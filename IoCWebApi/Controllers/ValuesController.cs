@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using IoCWebApi.Services;
+using Serilog;
 
 namespace IoCWebApi.Controllers
 {
@@ -21,9 +19,11 @@ namespace IoCWebApi.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            repository.Authenticate();
+            var allPersons = repository.GetAllPersons().ToList();
 
-            return repository.GetAllPersons();
+            Log.Debug("Loaded persons: {@Persons}", allPersons);
+
+            return allPersons;
         }
     }
 }

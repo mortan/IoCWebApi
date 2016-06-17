@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using IoCWebApi.Services;
 using IoCWebApi.ViewModels;
+using Serilog;
 
 namespace IoCWebApi.Controllers
 {
@@ -21,10 +18,14 @@ namespace IoCWebApi.Controllers
         {
             ViewBag.Title = "Home Page";
 
-            return View(new IndexViewModel
+            var indexViewModel = new IndexViewModel
             {
                 Persons = repository.GetAllPersons()
-            });
+            };
+
+            Log.Debug("Returning index view with model: {@Model}", indexViewModel);
+
+            return View(indexViewModel);
         }
     }
 }

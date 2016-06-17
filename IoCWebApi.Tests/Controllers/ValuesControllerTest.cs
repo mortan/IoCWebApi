@@ -41,9 +41,6 @@ namespace IoCWebApi.Tests.Controllers
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Count());
             Assert.AreEqual("Depra", result.ElementAt(0));
-
-            // Außerdem erlaubt uns ein vernünftiges Mocking-Framework Verhalten zu verifizieren, d. h. z. B. zu überprüfen ob und wie oft gewisse Methoden aufgerufen wurden!
-            repositoryMock.Verify(x => x.Authenticate(), Times.Once);
         }
     }
 }
